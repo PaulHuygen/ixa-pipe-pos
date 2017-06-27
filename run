@@ -1,0 +1,26 @@
+#!/bin/bash
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+opts=""
+while getopts l:m: opt; do
+   case $opt in
+     l) LEMMODEL=$OPTARG
+        ;;
+     m) POSMODEL=$OPTARG
+        ;;
+     *) echo "Unknown option." 
+        exit 1
+        ;;
+    esac
+done
+#
+# POS model
+#
+POSMODEL_DEF="morph-models-1.5.0/en/en-pos-perceptron-autodict01-conll09.bin"
+POSMODEL=${POSMODEL:-$POSMODEL_DEF}
+LEMMODEL_DEF="morph-models-1.5.0/en/en-lemma-perceptron-conll09.bin"
+LEMMODEL=${LEMMODEL:-$LEMMODEL_DEF}
+JARFILE=ixa-pipe-pos-1.5.2-exec.jar
+cd $thisdir
+java -Xmx1000m  -jar $JARFILE tag -m $thisdir/$POSMODEL -lm $thisdir/$LEMMODEL
+
+# java -Xmx1000m -jar ${MODDIR}/ixa-pipe-pos-1.4.3.jar tag -m ${MODDIR}/en-maxent-100-c5-baseline-dict-penn.bin

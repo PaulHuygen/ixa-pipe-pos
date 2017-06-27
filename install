@@ -1,0 +1,22 @@
+#!/bin/bash
+# Install POS
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $thisdir
+#
+# Resources
+#
+wget http://ixa2.si.ehu.es/ixa-pipes/models/ud-morph-models-1.5.0.tar.gz
+tar -xzf ud-morph-models-1.5.0.tar.gz
+rm ud-morph-models-1.5.0.tar.gz
+wget http://ixa2.si.ehu.es/ixa-pipes/models/morph-models-1.5.0.tar.gz
+tar -xzf morph-models-1.5.0.tar.gz
+rm morph-models-1.5.0.tar.gz
+cd $thisdir/src/main/resources
+wget http://ixa2.si.ehu.es/ixa-pipes/models/lemmatizer-dicts.tar.gz
+tar -xzf lemmatizer-dicts.tar.gz
+rm lemmatizer-dicts.tar.gz
+JARFILE=ixa-pipe-pos-1.5.2-exec.jar
+mvn clean package
+mv target/$JARFILE .
+# rm -rf src
+# rm -rf target
