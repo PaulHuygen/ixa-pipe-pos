@@ -15,6 +15,7 @@ cd $thisdir/src/main/resources
 wget http://ixa2.si.ehu.es/ixa-pipes/models/lemmatizer-dicts.tar.gz
 tar -xzf lemmatizer-dicts.tar.gz
 rm lemmatizer-dicts.tar.gz
+cd $thisdir
 JARFILE=ixa-pipe-pos-1.5.2-exec.jar
 mvn clean package
 mv target/$JARFILE .
